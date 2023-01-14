@@ -1,4 +1,4 @@
-package com.example.a186010_lab3_mpip.adapters
+package com.example.lab3.adapters
 
 
 import android.content.Context
@@ -9,16 +9,16 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.a186010_lab3_mpip.R
-import com.example.a186010_lab3_mpip.models.Data
+import com.example.lab3.R
+import com.example.lab3.models.Movie
 
-class MovieRecyclerViewAdapter(private val context: Context, private var movies: MutableList<Data>, private val onMovieClick: (position: Int) -> Unit) :
+class MovieRecyclerViewAdapter(private val context: Context, private var movies: MutableList<Movie>, private val onMovieClick: (position: Int) -> Unit) :
     RecyclerView.Adapter<MovieRecyclerViewAdapter.ViewHolder>() {
 
     class ViewHolder(view: View, private val onMovieClick: (position: Int) -> Unit) : RecyclerView.ViewHolder(view), View.OnClickListener{
-        val poster: ImageView = view.findViewById(R.id.imageView)
-        val title: TextView = view.findViewById(R.id.movieTitle)
-        val year: TextView = view.findViewById(R.id.movieYear)
+        val title: TextView = view.findViewById(R.id.Title)
+        val poster: ImageView = view.findViewById(R.id.image)
+        val year: TextView = view.findViewById(R.id.Year)
 
         init {
             view.setOnClickListener(this)
@@ -31,7 +31,7 @@ class MovieRecyclerViewAdapter(private val context: Context, private var movies:
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.movie_row, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.movie, parent, false)
         return ViewHolder(view) { position ->
             onMovieClick(
                 position
@@ -52,7 +52,7 @@ class MovieRecyclerViewAdapter(private val context: Context, private var movies:
         return movies.size
     }
 
-    fun updateData(data: MutableList<Data>){
+    fun updateMovies(data: MutableList<Movie>){
         this.movies = data
         this.notifyDataSetChanged()
     }

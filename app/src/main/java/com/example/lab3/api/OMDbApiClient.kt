@@ -1,4 +1,4 @@
-package com.example.a186010_lab3_mpip.api
+package com.example.lab3.api
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -7,7 +7,7 @@ class OMDbApiClient {
 
     companion object {
         private var omdbApi: OMDbApi? = null
-        val apiKey = "921feb99";
+        val apiKey = "b0e647f4";
 
         fun getOMDbApi(): OMDbApi? {
 

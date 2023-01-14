@@ -1,4 +1,4 @@
-package com.example.a186010_lab3_mpip
+package com.example.lab3
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/firstFragment"
-        android:name="com.example.a186010_lab3_mpip.FirstFragment"
+        android:name="com.example.lab3.FirstFragment"
         android:label="fragment_first"
         tools:layout="@layout/fragment_first" >
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/secondFragment"
-        android:name="com.example.a186010_lab3_mpip.SecondFragment"
+        android:name="com.example.lab3.SecondFragment"
         android:label="fragment_second"
         tools:layout="@layout/fragment_second" >
         <argument

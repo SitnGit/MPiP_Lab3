@@ -11,7 +11,7 @@
         android:layout_height="match_parent">
 
         <ImageView
-            android:id="@+id/moviePicture"
+            android:id="@+id/Image"
             android:layout_width="150dp"
             android:layout_height="100dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -23,7 +23,7 @@
             tools:src="@tools:sample/avatars" />
 
         <TextView
-            android:id="@+id/movieDetailsTitle"
+            android:id="@+id/Title"
             android:layout_width="228dp"
             android:layout_height="95dp"
             android:text="TextView"
@@ -32,12 +32,13 @@
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/moviePicture"
-            app:layout_constraintVertical_bias="0.119" />
+            app:layout_constraintTop_toBottomOf="@+id/Image"
+            app:layout_constraintVertical_bias="0.0" />
 
         <TextView
-            android:id="@+id/movieDetailsYear"
+            android:id="@+id/Year"
             android:layout_width="227dp"
             android:layout_height="46dp"
             android:text="TextView"
@@ -46,9 +47,10 @@
             android:textStyle="italic"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.494"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/movieDetailsTitle"
-            app:layout_constraintVertical_bias="0.237" />
+            app:layout_constraintTop_toBottomOf="@+id/Title"
+            app:layout_constraintVertical_bias="0.0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

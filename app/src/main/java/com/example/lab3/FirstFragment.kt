@@ -1,4 +1,4 @@
-package com.example.a186010_lab3_mpip
+package com.example.lab3
 
 import android.content.Context
 import android.os.Bundle
@@ -12,24 +12,24 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.a186010_lab3_mpip.adapters.MovieRecyclerViewAdapter
-import com.example.a186010_lab3_mpip.api.OMDbApi
-import com.example.a186010_lab3_mpip.api.OMDbApiClient
-import com.example.a186010_lab3_mpip.models.Data
-import com.example.a186010_lab3_mpip.models.MovieList
+import com.example.lab3.adapters.MovieRecyclerViewAdapter
+import com.example.lab3.api.OMDbApi
+import com.example.lab3.api.OMDbApiClient
+import com.example.lab3.models.MovieList
 import android.app.Activity
 import android.util.Log
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.example.a186010_lab3_mpip.viewmodels.FirstFragmentViewModel
+import com.example.lab3.models.Movie
+import com.example.lab3.viewmodels.FirstViewModel
 
 
 class FirstFragment : Fragment() {
-    private lateinit var omdbApiClient: OMDbApi
+    private lateinit var firstViewModel: FirstViewModel
+    private lateinit var OMDbAPIClient: OMDbApi
+    private lateinit var recyclerView: RecyclerView
     private lateinit var recyclerViewAdapter: MovieRecyclerViewAdapter
-    private lateinit var movieRecyclerView: RecyclerView
-    private lateinit var firstFragmentViewModel: FirstFragmentViewModel
-    private lateinit var movieList: MutableList<Data>
+    private lateinit var movieList: MutableList<Movie>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,35 +42,32 @@ class FirstFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        firstFragmentViewModel = ViewModelProvider(this).get(FirstFragmentViewModel::class.java)
+        firstViewModel = ViewModelProvider(this).get(FirstViewModel::class.java)
+        firstViewModel.getMovieList().observe(viewLifecycleOwner,
+            { m -> showMovies(m!!) })
 
-        firstFragmentViewModel.getMovieListMutableLiveData().observe(viewLifecycleOwner,
-            { t -> displayData(t!!) })
+        OMDbAPIClient = OMDbApiClient.getOMDbApi()!!
+        recyclerView = view.findViewById(R.id.recyclerView)
+        recyclerView.layoutManager = LinearLayoutManager(activity)
 
-        omdbApiClient = OMDbApiClient.getOMDbApi()!!
-
-        movieRecyclerView = view.findViewById(R.id.movieRecyclerViewId)
-
-        movieRecyclerView.layoutManager = LinearLayoutManager(activity)
-
-        recyclerViewAdapter = MovieRecyclerViewAdapter(view.context ,mutableListOf<Data>()){ position ->
+        recyclerViewAdapter = MovieRecyclerViewAdapter(view.context ,mutableListOf<Movie>()){ position ->
             onMovieClick(
                 position
             )
         }
 
-        movieRecyclerView.adapter = recyclerViewAdapter
+        recyclerView.adapter = recyclerViewAdapter
 
-        (movieRecyclerView.getLayoutManager() as LinearLayoutManager).stackFromEnd = true
+        (recyclerView.getLayoutManager() as LinearLayoutManager).stackFromEnd = true
 
-        val searchBar: EditText = view.findViewById(R.id.searchBarId)
+        val searchBar: EditText = view.findViewById(R.id.search)
 
         searchBar.setOnEditorActionListener{ v, actionId, event ->
             if(actionId == EditorInfo.IME_ACTION_DONE || actionId == EditorInfo.IME_ACTION_NEXT){
                 val title: String = searchBar.text.toString()
                 hideKeyboard()
-                firstFragmentViewModel.searchMoviesByTitle(title)
-                movieRecyclerView.scrollToPosition(0)
+                firstViewModel.findMoviesByTitle(title)
+                recyclerView.scrollToPosition(0)
                 true
             }
             else {
@@ -80,9 +77,9 @@ class FirstFragment : Fragment() {
         }
     }
 
-    private fun displayData(data: MovieList) {
+    private fun showMovies(data: MovieList) {
         movieList = data.Search
-        recyclerViewAdapter.updateData(movieList)
+        recyclerViewAdapter.updateMovies(movieList)
     }
 
     private fun onMovieClick(position: Int){

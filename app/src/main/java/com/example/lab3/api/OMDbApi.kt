@@ -1,6 +1,6 @@
-package com.example.a186010_lab3_mpip.api
+package com.example.lab3.api
 
-import com.example.a186010_lab3_mpip.models.MovieList
+import com.example.lab3.models.MovieList
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
