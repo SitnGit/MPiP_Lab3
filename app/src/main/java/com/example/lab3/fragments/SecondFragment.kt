@@ -1,4 +1,4 @@
-package com.example.lab3
+package com.example.lab3.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,6 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
+import com.example.lab3.R
 import com.example.lab3.models.Movie
 import com.example.lab3.viewmodels.SecondViewModel
 

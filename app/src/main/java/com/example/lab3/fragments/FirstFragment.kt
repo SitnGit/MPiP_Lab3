@@ -1,4 +1,4 @@
-package com.example.lab3
+package com.example.lab3.fragments
 
 import android.content.Context
 import android.os.Bundle
@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.Toast
@@ -18,8 +17,10 @@ import com.example.lab3.api.OMDbApiClient
 import com.example.lab3.models.MovieList
 import android.app.Activity
 import android.util.Log
+import android.widget.Button
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.example.lab3.R
 import com.example.lab3.models.Movie
 import com.example.lab3.viewmodels.FirstViewModel
 
@@ -61,19 +62,12 @@ class FirstFragment : Fragment() {
         (recyclerView.getLayoutManager() as LinearLayoutManager).stackFromEnd = true
 
         val searchBar: EditText = view.findViewById(R.id.search)
-
-        searchBar.setOnEditorActionListener{ v, actionId, event ->
-            if(actionId == EditorInfo.IME_ACTION_DONE || actionId == EditorInfo.IME_ACTION_NEXT){
-                val title: String = searchBar.text.toString()
-                hideKeyboard()
-                firstViewModel.findMoviesByTitle(title)
-                recyclerView.scrollToPosition(0)
-                true
-            }
-            else {
-                Toast.makeText(activity, "Error!", Toast.LENGTH_LONG).show()
-                false
-            }
+        val button: Button = view.findViewById(R.id.button)
+        button.setOnClickListener{
+            val title: String = searchBar.text.toString()
+            hideKeyboard()
+            firstViewModel.findMoviesByTitle(title)
+            recyclerView.scrollToPosition(0)
         }
     }
 
